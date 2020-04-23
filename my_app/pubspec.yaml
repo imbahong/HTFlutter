@@ -26,8 +26,13 @@ dependencies:
 
   # 新添加的依赖
   english_words: ^3.1.5
+
+  # 轮播图
   flutter_swiper: ^1.1.6 
-  CachedNetworkImage: ^2.1.0
+
+  #网络图片加载库
+  cached_network_image: ^2.1.0
+
 
 
 dev_dependencies:
