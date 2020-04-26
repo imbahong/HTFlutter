@@ -29,11 +29,18 @@ dependencies:
 
   # 轮播图
   flutter_swiper: ^1.1.6 
-
+  
   #网络图片加载库
   cached_network_image: ^2.1.0
 
+  #下拉刷新
+  pull_to_refresh: ^1.5.7
 
+  #网络请求
+  dio: ^3.0.9
+
+  #json转模型
+  json_annotation: ^3.0.1
 
 dev_dependencies:
   flutter_test:
