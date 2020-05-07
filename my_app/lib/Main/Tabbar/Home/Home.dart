@@ -10,6 +10,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 // 更改状态栏
 import 'package:flutter/services.dart';
+import 'package:my_app/models/BannerModel.dart';
 
 // 下拉刷新
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -20,7 +21,7 @@ import 'package:flutter/cupertino.dart';
 
 // 网络请求框架
 import 'package:dio/dio.dart';
-
+import 'dart:convert';
 
   // 网络请求 全局设置
  // 或者通过传递一个 `options`来创建dio实例
@@ -123,7 +124,21 @@ class _MainListState extends State<MainList> {
     //  print('我打印了');  
 
     Response response = await dio.get("Product/GetHome_AdverList");
-      print(response);
+    
+        // List<BannerModel> = List<BannerModel>.from(re)
+
+        // BannerModel model = BannerModel.fromJson(list);
+
+
+
+      // List responseJson = json.decode(.toString());
+
+      List<BannerModel> bannerRowModels = response.data["Data"]["Banner"].map((m) => BannerModel.fromJson(m)).toList();
+
+  //  List<Bna> dataStr = response.data["Data"]["Banner"];
+  //  List<BannerModel> bannerData =  json.decode(dataStr);
+
+      print(bannerRowModels);
 
     // monitor network fetch
     // await Future.delayed(Duration(milliseconds: 1000));
