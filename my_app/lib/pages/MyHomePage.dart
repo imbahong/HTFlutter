@@ -23,15 +23,7 @@
 // import 'package:dio/dio.dart';
 // import 'dart:convert';
 
-//   // 网络请求 全局设置
-//  // 或者通过传递一个 `options`来创建dio实例
-//   BaseOptions options = BaseOptions(
-//       baseUrl: "http://api.jihuigou.net/v1/",
-//       connectTimeout: 15000,
-//       receiveTimeout: 15000,
-//   );
-  
-//   Dio dio = Dio(options);
+
 
 
 

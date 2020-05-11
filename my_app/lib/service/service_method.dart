@@ -5,6 +5,18 @@ import '../config/service_url.dart';
 import 'dart:convert';
 
 
+
+ // 网络请求 全局设置
+ // 或者通过传递一个 `options`来创建dio实例
+  BaseOptions options = BaseOptions(
+      baseUrl: "http://api.jihuigou.net/v1/",
+      connectTimeout: 15000,
+      receiveTimeout: 15000,
+      responseType: ResponseType.plain
+  );
+  
+  Dio dio = Dio(options);
+
 // 总的首页网络请求
 
 Future reloadHomeData() async {
@@ -53,7 +65,7 @@ Future getHomeBannerContent() async {
     Dio dio = new Dio();
     // dio.options.contentType =
     // ContentType.parse("application/x-www-form-urlencoded").toString();
-    response = await dio.get(servicePath['homeBanner'],options: Options(responseType: ResponseType.plain));
+    response = await dio.get(servicePath['homeBanner'],options: Options(responseType: ));
     if (response.statusCode == 200) {
       return response.data;
     } else {
@@ -82,3 +94,35 @@ Future getHomeTopModuleContent() async {
   }
 }
  
+
+
+
+ // 午餐
+ Future getRequest(String url) async{
+    try {
+      // 响应体
+      Response response;
+      response = await dio.get(url);
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } catch (e) {
+       print('接口报错Erro: =====> ${e} 地址为: ${url}');
+    }
+ }
+
+  Future getRequestParams(String url,formData) async{
+    try {
+      // 响应体
+      Response response;
+      response = await dio.get(url,queryParameters: formData);
+      if (response.statusCode == 200) {
+        return response.data;
+      }
+    } catch (e) {
+       print('接口报错Erro: =====> ${e} 地址为: ${url}');
+    }
+ }
+
+
+//  Map formData
