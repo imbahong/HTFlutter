@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
   void initState() {
     super.initState();
 
-    getHomeBannerContent().then((value) {
+    fetchHomeBannerData().then((value) {
       setState(() {
         homePageContent = value.toString();
       });
