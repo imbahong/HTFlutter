@@ -4,6 +4,7 @@ import 'package:my_app/pages/cart_page.dart';
 import 'package:my_app/pages/category_page.dart';
 import 'package:my_app/pages/home_page.dart';
 import 'package:my_app/pages/member_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class IndexPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _IndexPageState extends State<IndexPage> {
      ),
   ];
 
-  final List tabBodies = [
+  final List<Widget> tabBodies = [
     HomePage(),
     CategoryPage(),
     CartPage(),
@@ -52,6 +53,7 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,width: 375,height: 667,allowFontScaling: false);
     return Scaffold(
       backgroundColor: Colors.grey,
       bottomNavigationBar: BottomNavigationBar(
@@ -65,7 +67,10 @@ class _IndexPageState extends State<IndexPage> {
           });
         },
       ),
-      body: currentPage,
+      body: IndexedStack(
+        index: currentIndex,
+        children: tabBodies,
+      ),
     );
   }
 }

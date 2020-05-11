@@ -39,6 +39,12 @@ dependencies:
   #网络请求
   dio: ^3.0.9
 
+  #屏幕适配
+  flutter_screenutil: ^1.1.0
+
+  #拨打电话或者短信
+  url_launcher: ^5.4.5
+
 dev_dependencies:
 
   flutter_test:
@@ -49,6 +55,7 @@ dev_dependencies:
 
   json_serializable: ^2.0.0
   json_model: ^0.0.2
+
 
 
 
