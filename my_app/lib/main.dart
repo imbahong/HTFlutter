@@ -7,5 +7,9 @@ void main() {
   runApp(new MaterialApp(
     title: 'Flutter Tutorial',
     home: IndexPage(),
+    theme: ThemeData(
+      highlightColor: Color.fromRGBO(0, 0, 0, 0),
+      splashColor: Color.fromRGBO(0, 0, 0, 0)
+    ),
   ));
 }

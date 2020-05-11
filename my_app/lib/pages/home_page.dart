@@ -113,6 +113,7 @@ class TopNavigator extends StatelessWidget {
   TopNavigator({Key key, this.navigatorList}) : super(key: key);  
   Widget _gridViewItemUI(item) {
     return InkWell(
+      focusColor: Colors.red,
       onTap: () {
         print('点击了导航');
       },
@@ -136,8 +137,9 @@ class TopNavigator extends StatelessWidget {
         padding: EdgeInsets.all(10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3, // 横轴三个子widget
-        childAspectRatio: 1.5 // 宽高比为1时,子widget
-  
+        childAspectRatio: 1.5, // 宽高比为1时,子widget
+        mainAxisSpacing: 8,// 主轴间距
+        crossAxisSpacing: 8,// 副轴间距
       ),
         children: creatGridItem(),
       ),
@@ -277,6 +279,57 @@ class Recommend extends StatelessWidget {
           _titleWidget(),
           _recommendList()
         ],
+      ),
+    );
+  }
+}
+
+
+// 楼层标题
+class FloorTitle extends StatelessWidget {
+  final String picture_address;
+  const FloorTitle({Key key, this.picture_address}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.all(8.0),
+        child: Image.network(tempPicPath),      
+    );
+  }
+}
+
+
+// 楼层商品列表
+class FloorConent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child:Column(
+        children: <Widget>[
+          _firstRow()
+        ],
+      ),
+    );
+  }
+
+
+  Widget _firstRow() {
+    return Row(
+    children: <Widget>[
+      _goodItem(),
+      Column(
+
+      )
+    ], 
+    );
+  }
+
+  Widget _goodItem() {
+    return Container(
+      width: sWidth(SCREEN_WIDTH / 2),
+      child: InkWell(
+        onTap: (){},
+        child: Image.network(tempPicPath)
       ),
     );
   }
