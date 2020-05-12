@@ -24,6 +24,8 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
  @override
  bool get wantKeepAlive => true;
 
+  int page = 1;
+  List<Map> hotGoodsList = [];
   String homePageContent = '正在获取数据';
 
   @override
@@ -82,6 +84,24 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin 
           },
         ));
   }
+
+
+  // 热门商品
+  void _getHotGoods(){
+    var formPage = {'page' : page};
+     fetchHomeBannerData().then((value){
+       var data = json.decode((value).toString());
+      List<Map> newGoodsList = (data['data'] as List).cast();
+      setState(() {
+        hotGoodsList.addAll(newGoodsList);
+        page++;
+      });
+     });
+  }
+
+  Widget hotTitle = Container(
+  //  margin: e, 
+  );
 }
 
 // 首页轮播组件
