@@ -29,8 +29,15 @@ num sFont(num fontSize) {
 
 
 // 获取本地图片
-Image getLocalImage(String imagePath) {
-  return Image.asset(
-    imagePath,
+Widget getLocalImage(String imagePath,double size) {
+  if (size == 0) {
+    size = 44;
+  }
+  return ConstrainedBox(
+    constraints: BoxConstraints(
+      maxWidth: size,
+      maxHeight: size,
+    ),
+    child: Image.asset(imagePath)
   );
 }

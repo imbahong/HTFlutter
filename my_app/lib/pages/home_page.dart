@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_app/components/navigationBarComponent.dart';
+
 import '../service/service_method.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'dart:convert';
@@ -9,6 +12,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/cupertino.dart';
 import '../routers/application.dart';
+
+
 
 const tempPicPath =
     'https://m.91jhg.com/app/img/icon/home/general/xinpinshoufa@3x.png';
@@ -73,43 +78,13 @@ class _HomePageState extends State<HomePage>
             bannerPaths.add('http://img.jihuigou.net/' + path);
           }
 
-          return SmartRefresher(
-              enablePullDown: true,
-              enablePullUp: true,
-              header: WaterDropHeader(),
-              footer: CustomFooter(
-                builder: (BuildContext context, LoadStatus mode) {
-                  Widget body;
-                  if (mode == LoadStatus.idle) {
-                    body = Text("上拉加载");
-                  } else if (mode == LoadStatus.loading) {
-                    body = CupertinoActivityIndicator();
-                  } else if (mode == LoadStatus.failed) {
-                    body = Text("加载失败！点击重试！");
-                  } else if (mode == LoadStatus.canLoading) {
-                    body = Text("松手,加载更多!");
-                  } else {
-                    body = Text("没有更多数据了!");
-                  }
-                  return Container(
-                    height: 55.0,
-                    child: Center(child: body),
-                  );
-                },
-              ),
-              controller: _refreshController,
-              onRefresh: _onRefresh,
-              onLoading: _onLoading,
-              child: CustomScrollView(
-                slivers: <Widget>[
-                  // 如果不是Sliver家族的widget，需要使用sliverToBoxAdapter做层包裹
-                  // 当列表项高度固定时，使用SliverFixedExtendlist 比sliver List具有更高的性能
-                  SliverToBoxAdapter(child:  SwiperDiy(swiperDateList: bannerPaths)),
-                  SliverToBoxAdapter(child:TopNavigator(navigatorList: topModuls)),
-                  SliverToBoxAdapter(child:AdBanner(adPicture: tempPicPath)),
-                  SliverToBoxAdapter(child:LeaderPhone(leaderImage: tempPicPath, leaderPhone: '13067922737')),
-                   SliverToBoxAdapter(child:Recommend()),
-                  SliverToBoxAdapter(child: _hotGoods())
+          return ConstrainedBox(
+              constraints: BoxConstraints(
+                  maxWidth: SCREEN_WIDTH, maxHeight: SCREEN_HEIGHT),
+              child: Stack( // 用stack 包裹一层，浮动布局
+                children: <Widget>[
+                  _mainList(bannerPaths, topModuls),
+                   HomeNavgaionBar(),
                 ],
               ));
         } else {
@@ -117,6 +92,51 @@ class _HomePageState extends State<HomePage>
         }
       },
     ));
+  }
+
+  // 主列表
+  Widget _mainList(bannerPaths, topModuls) {
+    return SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: WaterDropHeader(),
+        footer: CustomFooter(
+          builder: (BuildContext context, LoadStatus mode) {
+            Widget body;
+            if (mode == LoadStatus.idle) {
+              body = Text("上拉加载");
+            } else if (mode == LoadStatus.loading) {
+              body = CupertinoActivityIndicator();
+            } else if (mode == LoadStatus.failed) {
+              body = Text("加载失败！点击重试！");
+            } else if (mode == LoadStatus.canLoading) {
+              body = Text("松手,加载更多!");
+            } else {
+              body = Text("没有更多数据了!");
+            }
+            return Container(
+              height: 55.0,
+              child: Center(child: body),
+            );
+          },
+        ),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        onLoading: _onLoading,
+        child: CustomScrollView(
+          slivers: <Widget>[
+            // 如果不是Sliver家族的widget，需要使用sliverToBoxAdapter做层包裹
+            // 当列表项高度固定时，使用SliverFixedExtendlist 比sliver List具有更高的性能
+            SliverToBoxAdapter(child: SwiperDiy(swiperDateList: bannerPaths)),
+            SliverToBoxAdapter(child: TopNavigator(navigatorList: topModuls)),
+            SliverToBoxAdapter(child: AdBanner(adPicture: tempPicPath)),
+            SliverToBoxAdapter(
+                child: LeaderPhone(
+                    leaderImage: tempPicPath, leaderPhone: '13067922737')),
+            SliverToBoxAdapter(child: Recommend()),
+            SliverToBoxAdapter(child: _hotGoods())
+          ],
+        ));
   }
 
   // 热门商品
@@ -202,19 +222,43 @@ class _HomePageState extends State<HomePage>
 
 // 首页导航栏
 class HomeNavgaionBar extends StatelessWidget {
+  
+
+   HTNavigationButtonItem qrCodeItem = HTNavigationButtonItem(imgPath:'Assets/Home/Home_Scan.png', title:'二维码',onclick:(){
+        print('二维码终于打印了');
+    });
+
+     HTNavigationButtonItem messageItem = HTNavigationButtonItem(imgPath:'Assets/Home/Home_Message.png', title:'消息',onclick:(){
+        print('消息终于打印了');
+    });
+
+  // var qrc = HTNavigationButtonItem('1','12');
+  // HTNavigationButtonItem(, '二维码');
+  // InkWell messageItem = HTNavigationButtonItem(imgPath:'Assets/Home/Home_Message.png', title:'消息');
+   
+  // Widget messageItem = HTNavigationButtonItem();
+  //  HTNavigationButtonItem('Assets/Home/Home_Message.png','消息');
+
+
+  // 'Assets/Home/Home_Scan.png'
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: SCREEN_WIDTH,
       height: 64,
-      color: Colors.blueAccent,
-      child: Row(
-        // mainAxisAlignment: MainAxisAlignment.start,
+      color: Colors.blue,
+      child: Container(
+        child:  Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
+
         children: <Widget>[
-          HTNavigationButtonItem(),
-          HTNavigationButtonItem(),
+          qrCodeItem,
+          messageItem,
         ],
+      ),
+      padding: EdgeInsets.fromLTRB(5,0, 5, 0),
       ),
     );
   }

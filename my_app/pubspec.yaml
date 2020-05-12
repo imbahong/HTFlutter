@@ -53,6 +53,9 @@ dependencies:
 
   #路由
   fluro: ^1.6.3
+  
+  #rx
+  # rxdart: ^0.24.0
 
 dev_dependencies:
 

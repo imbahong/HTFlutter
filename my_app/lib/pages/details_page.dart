@@ -9,13 +9,15 @@ class DetailsPage extends StatelessWidget {
   final String goodsId;
   DetailsPage(this.goodsId);
 
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('商品ID: ${goodsId}'),
-      ),      
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('详情页'),
+        leading: RaisedButton(onPressed:(){
+          Navigator.pop(context);
+        }),
+      ),
     );
   }
 }
