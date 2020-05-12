@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "微信文档里有",
+                "paths": [ "/wxShare/*","*"]
+            }      
+	  ]
+    }
+}

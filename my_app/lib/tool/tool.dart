@@ -1,4 +1,5 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/material.dart';
 
 
 // 屏幕宽
@@ -19,6 +20,17 @@ var SCREEN_HEIGHT =  ScreenUtil.screenHeight * 0.5;
  } 
 
 // 适配字体utilFont
-num uFont(num fontSize) {
+num sFont(num fontSize) {
   return ScreenUtil().setSp(fontSize);
+}
+
+
+
+
+
+// 获取本地图片
+Image getLocalImage(String imagePath) {
+  return Image.asset(
+    imagePath,
+  );
 }
