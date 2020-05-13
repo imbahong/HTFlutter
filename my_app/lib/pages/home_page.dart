@@ -13,8 +13,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/cupertino.dart';
 import '../routers/application.dart';
 
-
-
 const tempPicPath =
     'https://m.91jhg.com/app/img/icon/home/general/xinpinshoufa@3x.png';
 
@@ -81,10 +79,11 @@ class _HomePageState extends State<HomePage>
           return ConstrainedBox(
               constraints: BoxConstraints(
                   maxWidth: SCREEN_WIDTH, maxHeight: SCREEN_HEIGHT),
-              child: Stack( // 用stack 包裹一层，浮动布局
+              child: Stack(
+                // 用stack 包裹一层，浮动布局
                 children: <Widget>[
                   _mainList(bannerPaths, topModuls),
-                   HomeNavgaionBar(),
+                  HomeNavgaionBar(),
                 ],
               ));
         } else {
@@ -222,26 +221,6 @@ class _HomePageState extends State<HomePage>
 
 // 首页导航栏
 class HomeNavgaionBar extends StatelessWidget {
-  
-
-   HTNavigationButtonItem qrCodeItem = HTNavigationButtonItem(imgPath:'Assets/Home/Home_Scan.png', title:'二维码',onclick:(){
-        print('二维码终于打印了');
-    });
-
-     HTNavigationButtonItem messageItem = HTNavigationButtonItem(imgPath:'Assets/Home/Home_Message.png', title:'消息',onclick:(){
-        print('消息终于打印了');
-    });
-
-  // var qrc = HTNavigationButtonItem('1','12');
-  // HTNavigationButtonItem(, '二维码');
-  // InkWell messageItem = HTNavigationButtonItem(imgPath:'Assets/Home/Home_Message.png', title:'消息');
-   
-  // Widget messageItem = HTNavigationButtonItem();
-  //  HTNavigationButtonItem('Assets/Home/Home_Message.png','消息');
-
-
-  // 'Assets/Home/Home_Scan.png'
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -249,16 +228,26 @@ class HomeNavgaionBar extends StatelessWidget {
       height: 64,
       color: Colors.blue,
       child: Container(
-        child:  Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-
-        children: <Widget>[
-          qrCodeItem,
-          messageItem,
-        ],
-      ),
-      padding: EdgeInsets.fromLTRB(5,0, 5, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            HTNavigationButtonItem(
+                imgPath: 'Assets/Home/Home_Scan.png',
+                title: '二维码',
+                onclick: () {
+                  print('二维码终于打印了');
+                }),
+            HTSearchBar(),
+            HTNavigationButtonItem(
+                imgPath: 'Assets/Home/Home_Message.png',
+                title: '消息',
+                onclick: () {
+                  print('消息终于打印了');
+                }),
+          ],
+        ),
+        padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
       ),
     );
   }
