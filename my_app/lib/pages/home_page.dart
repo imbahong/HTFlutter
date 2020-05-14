@@ -226,7 +226,7 @@ class HomeNavgaionBar extends StatelessWidget {
     return Container(
       width: SCREEN_WIDTH,
       height: 64,
-      color: Colors.blue,
+      color: Colors.transparent,
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -263,7 +263,11 @@ class SwiperDiy extends StatelessWidget {
     return Container(
       height: 200,
       width: SCREEN_WIDTH,
-      child: Swiper(
+      child: Stack(
+        children: <Widget>[
+          Text('1231231231'),
+          getLocalImageWithImgSize('Assets/Home/Home_SwipperMask.png', Size(sWidth(375), 100)),
+        Swiper(
         itemBuilder: (BuildContext context, int index) {
           // 展示的cell
           return Image.network(
@@ -275,6 +279,10 @@ class SwiperDiy extends StatelessWidget {
         pagination: SwiperPagination(),
         autoplay: true,
       ),
+        ],
+      ),
+      
+      
     );
   }
 }

@@ -41,38 +41,51 @@ class HTNavigationButtonItem extends StatelessWidget {
 class HTSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-     child: ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 30),
-      child: Container(
-        color: Colors.white,
+    return Container(
+      height: 40,
+      padding: EdgeInsets.only(bottom: 10),
+     child:  Container(
+       decoration: BoxDecoration(
+         color: Colors.white,
+         borderRadius: BorderRadius.circular(14),
+       ),
+       padding:  EdgeInsets.only(right: 10),
+        
         child: Row(
-          // mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               child: Icon(Icons.search),
-              padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+              padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
             ),
-            Expanded(
-              child: Container(
-              color: Colors.red,
+            Container(
+              width: sWidth(240),
               child: TextField(
                 style: TextStyle(textBaseline: TextBaseline.alphabetic),
                 autofocus: true,
                 enabled: false,
                 decoration: InputDecoration(
+                  border: InputBorder.none,
                   // labelText: "用户名",
-                  contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 11),
-                  hintText: "请输入搜索内容",
+                  contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 12),
+                  hintText: "请输入您想搜索的内容",
                   // prefixText: "请输入搜索内容",
                   // prefixIcon: Icon(Icons.search),
                 ),
               ),
-            )),
+            ),
           ],
         ),
       ),
-    ));
+    );
   }
 }
+
+
+// Expanded(child: 
+    //  ConstrainedBox(
+    //   constraints: BoxConstraints(maxHeight: 30),
+    //   child:
+    // )
+    // )
