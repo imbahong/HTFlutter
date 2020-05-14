@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_app/components/navigationBarComponent.dart';
+import 'package:my_app/models/BannerModel.dart';
 
 import '../service/service_method.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -66,15 +67,11 @@ class _HomePageState extends State<HomePage>
           // var data = json.decode(snapshot.data.toString());
 
           var data = snapshot.data;
-          List<Map> banner = (data['Banner'] as List).cast();
+          List<BannerModel> bannerData = data['Banner'];
           List topModuls = data['TopModuls'];
 
           // List<Map> topModulsNames = (data['TopModulsNames'] as List).cast();
-          List<String> bannerPaths = [];
-          for (var item in banner) {
-            var path = item["ImgPath1"];
-            bannerPaths.add('http://img.jihuigou.net/' + path);
-          }
+          List<String> bannerPaths = bannerData.map((e) => 'http://img.jihuigou.net/' + e.ImgPath1);
 
           return ConstrainedBox(
               constraints: BoxConstraints(
@@ -128,12 +125,12 @@ class _HomePageState extends State<HomePage>
             // 当列表项高度固定时，使用SliverFixedExtendlist 比sliver List具有更高的性能
             SliverToBoxAdapter(child: SwiperDiy(swiperDateList: bannerPaths)),
             SliverToBoxAdapter(child: TopNavigator(navigatorList: topModuls)),
-            SliverToBoxAdapter(child: AdBanner(adPicture: tempPicPath)),
-            SliverToBoxAdapter(
-                child: LeaderPhone(
-                    leaderImage: tempPicPath, leaderPhone: '13067922737')),
-            SliverToBoxAdapter(child: Recommend()),
-            SliverToBoxAdapter(child: _hotGoods())
+            // SliverToBoxAdapter(child: AdBanner(adPicture: tempPicPath)),
+            // SliverToBoxAdapter(
+            //     child: LeaderPhone(
+            //         leaderImage: tempPicPath, leaderPhone: '13067922737')),
+            // SliverToBoxAdapter(child: Recommend()),
+            // SliverToBoxAdapter(child: _hotGoods())
           ],
         ));
   }
@@ -148,7 +145,8 @@ class _HomePageState extends State<HomePage>
         hotGoodsList.addAll(newGoodsList);
         page++;
       });
-    });
+    }
+    );
   }
 
   Widget hotTitle = Container(
@@ -226,7 +224,7 @@ class HomeNavgaionBar extends StatelessWidget {
     return Container(
       width: SCREEN_WIDTH,
       height: 64,
-      color: Colors.transparent,
+      color: Colors.blue,
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -257,40 +255,48 @@ class HomeNavgaionBar extends StatelessWidget {
 class SwiperDiy extends StatelessWidget {
   final List swiperDateList;
   SwiperDiy({this.swiperDateList});
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: sHeight(478.5),
       width: SCREEN_WIDTH,
       child: Stack(
         children: <Widget>[
-          Text('1231231231'),
-          getLocalImageWithImgSize('Assets/Home/Home_SwipperMask.png', Size(sWidth(375), 100)),
-        Swiper(
-        itemBuilder: (BuildContext context, int index) {
-          // 展示的cell
-          return Image.network(
-            "${swiperDateList[index]}",
-            fit: BoxFit.fill,
-          );
-        },
-        itemCount: swiperDateList.length,
-        pagination: SwiperPagination(),
-        autoplay: true,
-      ),
+          Swiper(
+            onTap: (index){
+              print(index);
+            },
+            itemBuilder: (BuildContext context, int index) {
+              // 展示的cell
+              return Image.network(
+                "${swiperDateList[index]}",
+                fit: BoxFit.fill,
+              );
+            },
+            itemCount: swiperDateList.length,
+            pagination: SwiperPagination(),
+            autoplay: true,
+          ),
+          Container(
+
+            width: sWidth(375),
+            height: sHeight(100),
+            child: getLocalImageWithImgSize(
+              'Assets/Home/Home_SwipperMask.png', Size(SCREEN_WIDTH, sHeight(100))),
+          ),
         ],
       ),
-      
-      
     );
   }
 }
 
+
+// 顶部入口
 class TopNavigator extends StatelessWidget {
   final List navigatorList;
 
-  TopNavigator({Key key, this.navigatorList}) : super(key: key);
+  TopNavigator({this.navigatorList});
+
   Widget _gridViewItemUI(item) {
     return InkWell(
       focusColor: Colors.red,

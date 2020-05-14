@@ -60,7 +60,7 @@ class HTSearchBar extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
             ),
             Container(
-              width: sWidth(240),
+              width: sWidth(230),
               child: TextField(
                 style: TextStyle(textBaseline: TextBaseline.alphabetic),
                 autofocus: true,
