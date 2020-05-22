@@ -77,6 +77,7 @@ class BannerModel {
   String LinkUrl_App;
   String LinkUrl_WXXCX;
   String Attr1;
+ 
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         'ID': ID,

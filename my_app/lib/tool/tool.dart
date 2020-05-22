@@ -41,3 +41,13 @@ Widget getLocalImage(String imagePath,double size) {
     child: Image.asset(imagePath)
   );
 }
+
+Widget getLocalImageWithImgSize(String imagePath,Size size) {
+  return ConstrainedBox(
+    constraints: BoxConstraints(
+      maxWidth: size.width,
+      maxHeight: size.height,
+    ),
+    child: Image.asset(imagePath)
+  );
+}

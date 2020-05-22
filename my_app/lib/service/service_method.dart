@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:my_app/models/BannerModel.dart';
 import 'dart:async';
 import 'dart:io';
 import '../config/service_url.dart';
@@ -26,9 +28,10 @@ Future reloadHomeData() async {
   return Future.wait([
       fetchHomeBannerData().then((value) {
       var data = json.decode(value.toString());
-      dataDic['Banner'] = (data['Data']['Banner'] as List).cast();
+      dataDic['Banner'] = (data['Data']['Banner'] as List).map((e) => BannerModel.fromJson(e)).toList();
       //  return dataDic;
     }),
+    
     fetchHomeTopModuls().then((value) {
       // var data = json.decode(value.toString());
       // dataDic['TopModuls'] = (data['Data']['BackgroundImage'] as List).cast();
