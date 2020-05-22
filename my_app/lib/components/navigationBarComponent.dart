@@ -41,24 +41,26 @@ class HTNavigationButtonItem extends StatelessWidget {
 class HTSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-     child: ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: 30),
-      child: Container(
-        color: Colors.white,
+    return Container(
+        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15)
+        ),
+      
         child: Row(
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
               child: Icon(Icons.search),
-              padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
             ),
-            Expanded(
-              child: Container(
-              color: Colors.red,
+            Container(
+              width: 240,
+              height: 30,
+              // color: Colors.red,
               child: TextField(
-                style: TextStyle(textBaseline: TextBaseline.alphabetic),
                 autofocus: true,
                 enabled: false,
                 decoration: InputDecoration(
@@ -69,10 +71,9 @@ class HTSearchBar extends StatelessWidget {
                   // prefixIcon: Icon(Icons.search),
                 ),
               ),
-            )),
+            )
           ],
         ),
-      ),
-    ));
+      );
   }
 }
